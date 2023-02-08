@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>A Leaflet map!</title>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<style>
+#map {
+width: 960px;
+height: 500px;
+}
+</style>
+</head>
+
+<body>
+<div id="map"></div>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<script>
+    var map = L.map('map',{
+    center: [49.833352, 18.163662],
+    zoom: 10
+    });
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var data ={
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              23.4850463378073,
+              46.7440954850672
+            ]
+          },
+          "properties": {
+            "f1": 11793,
+            "f2": "BT"
+          }
+        }
+      ]
+    };
+
+var layerGroup = L.geoJSON(data, {
+  onEachFeature: function (feature, layer) {
+    layer.bindPopup('<h1>'+feature.properties.f1+'</h1><p>name: '+feature.properties.f2+'</p>');
+  }
+}).addTo(map);
+  
+</script>
+</body>
+</html>
